@@ -5,7 +5,7 @@ dotenv.config();
 const {Pool} = pg;
 
 const configDatabase = {
-    connectionString: 'postgres://postgres:postgres@localhost:5432/shortlydb',
+    connectionString: process.env.DATABASE_URL,
 };
 
 if (process.env.MODE === "prod") configDatabase.ssl = true;
