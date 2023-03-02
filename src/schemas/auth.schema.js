@@ -8,7 +8,7 @@ export const signUpSchema = Joi.object({
         .email()
         .required(),
     password: Joi.string()
-        .min(6)
+        .min(4)
         .required(),
     confirmPassword: Joi.ref('password')
 })

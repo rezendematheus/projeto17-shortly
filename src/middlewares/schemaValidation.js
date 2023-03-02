@@ -6,7 +6,7 @@ export default function validateSchema(schema) {
 
         if (error) {
             return res
-                .status(400)
+                .status(422)
                 .send(error.details.map(detail => detail.message));
         }
 

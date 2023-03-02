@@ -7,7 +7,8 @@ export async function signUp(req, res) {
 
     try {
         const emailExists = await db.query(`SELECT * FROM users WHERE email = $1`, [email]);
-        if(emailExists.rows[0]) return res.status(409).send("email already exists");
+
+        if(emailExists.rows[0]) return res.status(409).send();
 
         const hashPwd = bcrypt.hashSync(password, 10);
 
@@ -28,7 +29,7 @@ export async function signIn(req, res) {
 
         const user = await db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 
-        if(!user.rows[0]) return res.status(400).send();
+        if(!user.rows[0]) return res.status(401).send();
         
         const hashPwd = user.rows[0].password;
         const passwordIsValid = bcrypt.compareSync(password, hashPwd);
