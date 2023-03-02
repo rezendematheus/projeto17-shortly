@@ -38,7 +38,7 @@ export async function signIn(req, res) {
         const token = uuidV4();
         const userId = user.rows[0].id;
         await db.query(`INSERT INTO sessions ("userId", "token") VALUES ($1, $2)`, [userId, token]);
-        res.status(200).send(token)
+        res.status(200).send({token: token})
     } catch (error) {
         console.log(error)
         res.status(500).send(error)
