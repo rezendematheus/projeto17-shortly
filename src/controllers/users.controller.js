@@ -11,20 +11,20 @@ export async function getUserMe(req, res) {
         if (!session.rows[0]) res.status(401).send();
         
         const user = await db.query(`
-            SELECT users.id AS id, name, SUM("shortUrls".visits) AS "visitCount"
+            SELECT users.id AS id, name, COALESCE(SUM("shortUrls".visits), 0) AS "visitCount"
             FROM users
-            JOIN "shortUrls"
+            LEFT JOIN "shortUrls"
             ON users.id = "shortUrls"."userId"
             WHERE users.id = $1
             GROUP BY users.id
         `, [session.rows[0].userId])
-
+        
         const userShortUrls = await db.query(`
             SELECT id, "shortUrl", url, visits AS "visitCount"
             FROM "shortUrls"
             GROUP BY id
         `)
-        res.send({...user.rows, shortenedUrls: userShortUrls.rows})
+        res.send({...user.rows[0], shortenedUrls: userShortUrls.rows})
     } catch (error) {
         console.log(error)
         res.status(500).send(error)

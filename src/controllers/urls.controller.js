@@ -88,7 +88,7 @@ export async function deleteUrl(req, res) {
             DELETE FROM "shortUrls"
             WHERE id=$1
         `, [id])
-        res.send()
+        res.status(204).send()
         
     } catch (error) {
         console.log(error)
