@@ -27,7 +27,9 @@ SET default_table_access_method = heap;
 CREATE TABLE public.sessions (
     id integer NOT NULL,
     "userId" integer NOT NULL,
-    token character varying(255) NOT NULL
+    token character varying(255) NOT NULL,
+    "createdAt" date NOT NULL DEFAULT now(),
+    "createdAt" date NOT NULL now()
 );
 
 
@@ -60,7 +62,8 @@ CREATE TABLE public."shortUrls" (
     "userId" integer NOT NULL,
     url character varying(255) NOT NULL,
     "shortUrl" character varying(20) NOT NULL,
-    visits bigint NOT NULL
+    visits bigint NOT NULL,
+    "createdAt" date NOT NULL now()
 );
 
 

@@ -33,7 +33,7 @@ export async function signIn(req, res) {
         
         const hashPwd = user.rows[0].password;
         const passwordIsValid = bcrypt.compareSync(password, hashPwd);
-        if(!passwordIsValid) return res.status(400).send("authentication failed");
+        if(!passwordIsValid) return res.status(401).send("authentication failed");
 
         const token = uuidV4();
         const userId = user.rows[0].id;
