@@ -28,7 +28,7 @@ CREATE TABLE public.sessions (
     id integer NOT NULL,
     "userId" integer NOT NULL,
     token character varying(255) NOT NULL,
-    "createdAt" date DEFAULT now() NOT NULL
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -61,7 +61,7 @@ CREATE TABLE public."shortUrls" (
     "userId" integer NOT NULL,
     url character varying(255) NOT NULL,
     "shortUrl" character varying(20) NOT NULL,
-    "createdAt" date DEFAULT now() NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL,
     visits bigint DEFAULT '0'::bigint NOT NULL
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE public.users (
     name character varying(100) NOT NULL,
     email character varying(100) NOT NULL,
     password character varying(100) NOT NULL,
-    "createdAt" date DEFAULT now() NOT NULL
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -217,6 +217,22 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pk PRIMARY KEY (id);
+
+
+--
+-- Name: sessions sessions_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT sessions_fk0 FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- Name: shortUrls shortUrls_fk0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."shortUrls"
+    ADD CONSTRAINT "shortUrls_fk0" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --
