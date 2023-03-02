@@ -5,9 +5,9 @@ dotenv.config();
 const {Pool} = pg;
 
 const configDatabase = {
-    connectionString: process.env.DATABASEURL,
+    connectionString: 'postgres://postgres:postgres@localhost:5432/shortlydb',
 };
 
-if (process.env.MODE = "prod") configDatabase.ssl = true;
+if (process.env.MODE === "prod") configDatabase.ssl = true;
 
 export const db = new Pool(configDatabase);

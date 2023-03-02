@@ -10,8 +10,7 @@ export const signUpSchema = Joi.object({
     password: Joi.string()
         .min(6)
         .required(),
-    confirmPassword: Joi.ref(password)
-        .required()
+    confirmPassword: Joi.ref('password')
 })
 
 export const signInSchema = Joi.object({

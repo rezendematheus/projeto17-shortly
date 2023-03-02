@@ -8,6 +8,10 @@ import rankingRoutes from "./routes/ranking.routes.js";
 
 dotenv.config()
 
+if(process.env.MODE === "dev"){
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+console.log(process.env.MODE)
 const app = express()
 
 app.use(cors())
